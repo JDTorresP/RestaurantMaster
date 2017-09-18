@@ -17,7 +17,7 @@ class CommentsList extends Component {
     render(){
         return(
         <div>
-            <div className="container row">{this.renderComments()}</div>
+            <div className="container row">{this.props.comments ? this.renderComments():"No comments Yet lol"}</div>
         </div>);
     }
 }
