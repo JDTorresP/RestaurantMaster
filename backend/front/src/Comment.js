@@ -7,7 +7,7 @@ class Comment extends Component{
 
     render(){
         return(
-        <div className="my-1 text-center">
+        <div className="text-center">
            {this.props.comment.text}
         </div>);
     }

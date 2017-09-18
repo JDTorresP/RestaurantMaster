@@ -6,7 +6,8 @@ class Restaurant extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            comments: []
+            comments: [],
+            value:0
         };
     }
     refrescar() {
@@ -15,6 +16,12 @@ class Restaurant extends Component {
         }) 
     }
 
+     componentDidMount(){
+    
+        var quer= "/restaurant/"+this.props.restaurant.id+"/votes";
+        console.log(quer);
+        
+    }
     render() {
         return (
             <div className="col-md-6 my-1 text-center" onLoad = {this.refrescar()}>
@@ -23,13 +30,8 @@ class Restaurant extends Component {
                 <div className="address">{this.props.restaurant.address}</div>
                 <div className="product">{this.props.restaurant.product}</div>
                 <div className="prodDescrip">{this.props.restaurant.prodDescrip}</div>
-                <p>Rate: 1-10</p>
-                <a
-                    data-toggle="comments"
-                    href="#comments"
-                    aria-expanded="false"
-                    aria-controls="collapseExample">View comments</a>
-                <div className="collapse" id="collapseExample">
+                <p>{this.props.value}</p>
+                <div>
                     <div className="card card-body">
                         <CommentsList comments={this.state.comments}/>
                     </div>
