@@ -183,6 +183,7 @@ function getRestaurants(callback) {
                 });
             db.close();
         });
+        
 }
 
 module.exports = router;
