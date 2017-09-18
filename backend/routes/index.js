@@ -42,6 +42,7 @@ router.post('/restaurant', function (req, res) {
 
 })
 
+    
 router.route('/restaurant/:rest_id')
 //@GET /restaurant/:id - Obtener restaurante por id
     .get(function (req, res) {
@@ -55,6 +56,20 @@ router.route('/restaurant/:rest_id')
             mongoose
                 .connection
                 .close();
+        })
+    })
+    //@DELETE /restaurant/:id - Elimina el restaurante con el id dado
+    .delete(function (req, res) {
+        mongoose.connect(uri);
+        Restaurant.findById(req.params.rest_id, function (err, resta) {
+            if (err) 
+                res.send(err);
+            if(resta==null){
+                return res.json({message: 'El restaurante no existe o ya fue eliminado!'});
+            }
+            resta.remove();
+             res.json({message: 'restaurant removed!'});
+                
         })
     })
     //@UPDATE /restaurant/:id - Actualizar restaurante
@@ -106,20 +121,30 @@ router
                     }
                 })
         })
-    })
-    //@GET /restaurant/:id/comment/:id - Obtener un comentario de un restaurante
-router
-    .route('/restaurant/:rest_id')
-    .delete(function (req, res) {
+    }).delete(function (req, res) {
         mongoose.connect(uri);
         Restaurant.findById(req.params.rest_id, function (err, resta) {
-            if (err) 
-                res.send(err);
-            resta.remove();
-             res.json({message: 'restaurant removed!'});
+            
+            resta
+            .comments
+                .map((t) => {
+                    if (t.id == req.params.comm_id) {
+                        if (t == null) {
+                            return res.json({message: 'El restaurante no existe o ya fue eliminado!'});
+                        }
+                        t.remove();
+                        res.json({message: 'comment removed!'});
+
+                        mongoose
+                            .connection
+                            .close();
+                    }
+                })
                 
         })
     })
+    
+    
 
 //@POST /restaurant/:id/comment - Crear un cometario de un restaurante
 router
