@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import TwitterList from "./TwitterList.js";
+import RestaurantList from "./RestaurantList.js";
 import SearchBox from "./SearchBox.js";
 class App extends Component {
   constructor(props) {
     super(props);
      this.state={
-            tweets:[]
+            restaurantes:[]
         };
   }
       componentDidMount () {
@@ -17,7 +17,7 @@ class App extends Component {
         })
         .then((resta)=>{
           this.setState({
-            tweets:resta
+            restaurantes:resta
           });
         });
       }
@@ -25,11 +25,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>tweets</h1>
+        <h1>restaurants</h1>
         <div>
           <SearchBox/>
         </div>
-        <TwitterList tweets={this.state.tweets}/>
+        <RestaurantList restaurantes={this.state.restaurantes}/>
       </div>
     );
   }
