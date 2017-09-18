@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Tweet from "./Tweet.js"
-export default class TwitterList extends Component{
+import PropTypes from "prop-types";
+
+class TwitterList extends Component{
     constructor(props) {
         super(props);
     }
@@ -18,3 +20,9 @@ export default class TwitterList extends Component{
       )
     }
 }
+
+TwitterList.propTypes = {
+    tweets: PropTypes.array.isRequired
+  }
+  
+export default TwitterList;
