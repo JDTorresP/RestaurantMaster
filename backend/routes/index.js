@@ -100,8 +100,24 @@ router
                 .map((t) => {
                     if (t.id == req.params.comm_id) {
                         res.json(t);
+                        mongoose
+                        .connection
+                        .close();
                     }
                 })
+        })
+    })
+    //@GET /restaurant/:id/comment/:id - Obtener un comentario de un restaurante
+router
+    .route('/restaurant/:rest_id')
+    .delete(function (req, res) {
+        mongoose.connect(uri);
+        Restaurant.findById(req.params.rest_id, function (err, resta) {
+            if (err) 
+                res.send(err);
+            resta.remove();
+             res.json({message: 'restaurant removed!'});
+                
         })
     })
 
