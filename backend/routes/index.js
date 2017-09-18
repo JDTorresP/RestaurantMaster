@@ -9,13 +9,13 @@ var uri = "mongodb://adminresta:elrestaurantepro@restaurantcluster-shard-00-00-n
         "ter-shard-00-02-nc7qp.mongodb.net:27017/test?ssl=true&replicaSet=restaurantClust" +
         "er-shard-0&authSource=admin";
 
-/* GET home page. */
+//@GET /restaurants - Obtener todos los restaurantes
 router.get('/restaurants', function (req, res) {
     getRestaurants(function (restaurants) {
         res.json(restaurants);
     });
 });
-
+//@POST /restaurant - Crear restaurante
 router.post('/restaurant', function (req, res) {
     mongoose.connect(uri);
     var restaur = new Restaurant();
@@ -40,8 +40,8 @@ router.post('/restaurant', function (req, res) {
 
 })
 
-router
-    .route('/restaurant/:rest_id')
+router.route('/restaurant/:rest_id')
+//@GET /restaurant/:id - Obtener restaurante por id
     .get(function (req, res) {
         mongoose.connect(uri);
         Restaurant.findById(req.params.rest_id, function (err, resta) {
@@ -55,6 +55,7 @@ router
                 .close();
         })
     })
+    //@UPDATE /restaurant/:id - Actualizar restaurante
     .put(function (req, res) {
         mongoose.connect(uri);
         Restaurant.findById(req.params.rest_id, function (err, resta) {
@@ -84,25 +85,25 @@ router
                 });
         });
     })
-
+//@GET /restaurant/:id/comment/:id - Obtener un comentario de un restaurante
 router
-    .route('                                                                                                                                                                                                                                                                                                                                                                                                            ')
+    .route('/restaurant/:rest_id/comment/:comm_id')
     .get(function (req, res) {
         mongoose.connect(uri);
         Restaurant.findById(req.params.rest_id, function (err, resta) {
             if (err) 
                 res.send(err);
-            
-            resta.comments.findById(req.params.comm_id, function (err, com) {
-                if (err) 
-                res.send(err);
-                res.json(com);
-                mongoose
-                .connection
-                .close();
-            })
+            resta
+                .comments
+                .map((t) => {
+                    if (t.id == req.params.comm_id) {
+                        res.json(t);
+                    }
+                })
         })
     })
+
+//@POST /restaurant/:id/comment - Crear un cometario de un restaurante
 router
     .route('/restaurant/:rest_id/comment')
     .post(function (req, res) {
@@ -124,7 +125,46 @@ router
 
         })
     })
+//@GET /restaurant/:id/comments - Obtener los comentarios de un restaurante
+router
+    .route('/restaurant/:rest_id/comments')
+    .get(function (req, res) {
+        mongoose.connect(uri);
+        Restaurant.findById(req.params.rest_id, function (err, resta) {
+            if (err) 
+                res.send(err);
+            res.json(resta.comments);
+            mongoose
+                .connection
+                .close();
+        });
 
+    })
+router.route('/restaurant/:rest_id/votes')
+// @GET /restaurant/:id/votes - Obtiene el promedio de todos los votos del
+// restaurante
+    .get(function (req, res) {
+        mongoose.connect(uri);
+        Restaurant.findById(req.params.rest_id, function (err, resta) {
+            if (err) 
+                res.send(err);
+            
+            var cont = 0;
+            var l = 0;
+            resta
+                .comments
+                .map((t, i) => {
+                    cont = cont + t.vote;
+                    l++;
+                })
+            res.json((cont / l));
+            mongoose
+                .connection
+                .close();
+        });
+
+    })
+//funcion para get restaurantes mongodb sample
 function getRestaurants(callback) {
     MongoClient
         .connect(uri, function (err, db) {
