@@ -1,9 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var MongoClient = require('mongodb').MongoClient;
-var Restaurant = require('../modules/restaurant');
-var mongoose = require('mongoose');
+//Variables de los packages necesarios
+var express = require('express'); // express
+var router = express.Router(); // router para los paths del rest api
+var MongoClient = require('mongodb').MongoClient; //mongodb para consultar la bd
+var Restaurant = require('../modules/restaurant'); // modulo restaurant para consulta de los comments
+var mongoose = require('mongoose'); //mongoose para post y put del rest api
 
+//mongodb en Atlas Cloud
 var uri = "mongodb://adminresta:elrestaurantepro@restaurantcluster-shard-00-00-nc7qp.mongod" +
         "b.net:27017,restaurantcluster-shard-00-01-nc7qp.mongodb.net:27017,restaurantclus" +
         "ter-shard-00-02-nc7qp.mongodb.net:27017/test?ssl=true&replicaSet=restaurantClust" +

@@ -15,14 +15,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'front/build')));
+app.use(express.static(path.join(__dirname, 'front/build'))); // ruta statica del front en react
 
-app.use('/', index);
+app.use('/', index); // se sobreescribe la ruta pero se define el api en la misma
 app.use('/users', users);
 
 // catch 404 and forward to error handler
