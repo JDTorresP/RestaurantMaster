@@ -8,7 +8,9 @@ class Comment extends Component{
     render(){
         return(
         <div className="text-center">
-           {this.props.comment.text}
+            <div>{this.props.comment.user_mail}</div>
+          <div> {this.props.comment.text}</div>
+          <div>{this.props.comment.vote}</div>
         </div>);
     }
 }
