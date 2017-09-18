@@ -1,21 +1,37 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React, {Component} from 'react';
+import TwitterList from "./TwitterList.js";
+import SearchBox from "./SearchBox.js";
 class App extends Component {
+  constructor(props) {
+    super(props);
+     this.state={
+            tweets:[]
+        };
+  }
+      componentDidMount () {
+        fetch("/restaurants",{method:"GET",
+        headers:{accept:"application/json"}})
+        .then((res)=>{
+          if(res.ok)
+            return res.json();
+        })
+        .then((resta)=>{
+          this.setState({
+            tweets:resta
+          });
+        });
+      }
+      
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div>
+        <h1>tweets</h1>
+        <div>
+          <SearchBox/>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <TwitterList tweets={this.state.tweets}/>
       </div>
     );
   }
 }
-
 export default App;
