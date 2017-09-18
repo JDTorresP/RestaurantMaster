@@ -12,10 +12,12 @@ class Restaurant extends Component{
 
     render(){
         return(
-        <div className="col-md-6 col-lg-4 my-1 text-center">
-            <img src={this.props.restaurants.photo} alt="restaurant picture"/>
-            
-            <p>descripcion rest</p>
+        <div className="col-md-6 my-1 text-center">
+            <img src={this.props.restaurant.photo} alt="restaurant picture"/>
+            <div className="name">{this.props.restaurant.name}</div>
+            <div className="address">{this.props.restaurant.address}</div>
+            <div className="product">{this.props.restaurant.product}</div>
+            <div className="prodDescrip">{this.props.restaurant.prodDescrip}</div>
             <p>Rate: 1-10</p>
             <a data-toggle="comments" href="#comments" aria-expanded="false" aria-controls="collapseExample">View comments</a>
             <div className="collapse" id="collapseExample">
