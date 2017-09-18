@@ -85,6 +85,46 @@ router
         });
     })
 
+router
+    .route('                                                                                                                                                                                                                                                                                                                                                                                                            ')
+    .get(function (req, res) {
+        mongoose.connect(uri);
+        Restaurant.findById(req.params.rest_id, function (err, resta) {
+            if (err) 
+                res.send(err);
+            
+            resta.comments.findById(req.params.comm_id, function (err, com) {
+                if (err) 
+                res.send(err);
+                res.json(com);
+                mongoose
+                .connection
+                .close();
+            })
+        })
+    })
+router
+    .route('/restaurant/:rest_id/comment')
+    .post(function (req, res) {
+        mongoose.connect(uri);
+        Restaurant.findById(req.params.rest_id, function (err, resta) {
+            if (err) 
+                res.send(err);
+            resta
+                .comments
+                .push({user_mail: req.body.user_mail, text: req.body.text, vote: req.body.vote});
+            resta.save(function (err) {
+                if (err) 
+                    res.send(err);
+                res.json(resta);
+                mongoose
+                    .connection
+                    .close();
+            });
+
+        })
+    })
+
 function getRestaurants(callback) {
     MongoClient
         .connect(uri, function (err, db) {
