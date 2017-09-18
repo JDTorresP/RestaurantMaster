@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
-import Restaurante from "./Restaurante.js"
+//import './css/bootstrap.css';
+//import './css/styles.css';
 import PropTypes from "prop-types";
+import Restaurant from "./Restaurant.js";
 
-class RestaurantList extends Component{
-    constructor(props) {
+class RestaurantsList extends Component {
+    constructor(props){
         super(props);
     }
-    renderRestaurants()
-    {
-       return this.props.restaurantes.map((t,i)=>{
-            return <Restaurante restaurante = {t} key={i}/>
+
+    renderRestaurants(){
+        return this.props.restaurants.map((t,i)=>{
+            return <Restaurant restaurant={t} key={i}/>;
         });
     }
-    render() {
-      return (
+
+    render(){
+        return(
         <div>
-          {this.props.restaurantes ? this.renderRestaurants():"no hay restaurantes"}
-        </div>
-      )
+            <div className="container row">{this.renderRestaurants()}</div>
+        </div>);
     }
 }
+RestaurantsList.PropTypes = {
+    restaurants: PropTypes.array.isRequired
+}
 
-RestaurantList.propTypes = {
-    restaurantes: PropTypes.array.isRequired
-  }
-  
-export default RestaurantList;
+export default RestaurantsList;

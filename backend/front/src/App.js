@@ -1,37 +1,37 @@
 import React, {Component} from 'react';
+import Encabezado from "./Encabezado.js";
 import RestaurantList from "./RestaurantList.js";
-import SearchBox from "./SearchBox.js";
-class App extends Component {
-  constructor(props) {
-    super(props);
-     this.state={
-            restaurantes:[]
+
+class App extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            restaurants:[{}]
         };
-  }
-      componentDidMount () {
-        fetch("/restaurants",{method:"GET",
+    }
+
+   componentDidMount(){
+        fetch("/restaurants", {method: "GET", 
         headers:{accept:"application/json"}})
         .then((res)=>{
-          if(res.ok)
-            return res.json();
+            if(res.ok) return res.json();
         })
-        .then((resta)=>{
-          this.setState({
-            restaurantes:resta
-          });
+        .then((restaurants) => {
+            this.setState({
+                restaurants: restaurants
+            });
         });
-      }
-      
-  render() {
-    return (
-      <div>
-        <h1>restaurants</h1>
-        <div>
-          <SearchBox/>
-        </div>
-        <RestaurantList restaurantes={this.state.restaurantes}/>
-      </div>
-    );
-  }
+    }
+    render(){
+        return(
+            <div className='container-fluid'>
+                <div className='encabezado'>
+                    <Encabezado />
+                </div>
+                <RestaurantList restaurants={this.state.restaurants}/>
+            </div>
+        );
+    }
 }
+
 export default App;
