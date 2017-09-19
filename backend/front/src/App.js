@@ -1,3 +1,4 @@
+/* Felipe Iregui: Bien dividido en componentes de react y además bien, llamados, utilizados, conectados e importados.*/
 import React, {Component} from 'react';
 import Encabezado from "./Encabezado.js";
 import RestaurantList from "./RestaurantList.js";
