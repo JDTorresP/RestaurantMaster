@@ -6,6 +6,7 @@ var Restaurant = require('../modules/restaurant'); // modulo restaurant para con
 var mongoose = require('mongoose'); //mongoose para post y put del rest api
 
 //mongodb en Atlas Cloud
+/*Felipe Iregui: Muy chévere el modo de utilizar mongo, y además que gran uso de esta base de datos, la utilizaron mucho.*/
 var uri = "mongodb://adminresta:elrestaurantepro@restaurantcluster-shard-00-00-nc7qp.mongod" +
         "b.net:27017,restaurantcluster-shard-00-01-nc7qp.mongodb.net:27017,restaurantclus" +
         "ter-shard-00-02-nc7qp.mongodb.net:27017/test?ssl=true&replicaSet=restaurantClust" +
